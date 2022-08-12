@@ -1,0 +1,12 @@
+#Dell R710 modify fan speed.
+#This is how you overide the Dell default auto fan speed on R710 server.
+
+1. Install Sys management BMC.
+2. Install/configure iDRAC on server (static with dedicated ethernet connection).
+3. once iDRAC is setup and sysmgmt bmc is installed, run the following commands:
+
+cd C:\Program Files (x86)\Dell\Sysmgt\bmc
+impitool -I lanplus -H 192.168.1.244 -U root -P calvin raw 0x30 0x30 0x01 0x00
+impitool -I lanplus -H 192.168.1.244 -U root -P calvin raw 0x30 0x30 0x2 0xff 0x10
+
+** the last 0x00 is for fan speed, x10 = 10%, x20 = 20%, x40 = 40%, etc.
